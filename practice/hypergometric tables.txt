@@ -1,0 +1,47 @@
+Name        	: Priyank Singh Bhadouriya
+Roll NO.    	: 33
+Subject	    	: Data Analytics
+Course	    	: MCA 2
+
+===========================================================================================================================
+Display all the prob. tables of hypergeometric probability distribution
+===========================================================================================================================
+
+from scipy.stats import hypergeom
+
+def hypergeometric_table(N, M, n):
+    table = []
+    for x in range(n+1):
+        pmf = hypergeom.pmf(x, N, M, n)
+        table.append((x, pmf))
+    return table
+
+def print_table(table):
+    print("x\tP(X=x)")
+    for row in table:
+        print("{}\t{:.6f}".format(row[0], row[1]))
+
+def main():
+    N = int(input("Enter the population size (N): "))
+    M = int(input("Enter the number of success states in the population (M): "))
+    n = int(input("Enter the number of draws (n): "))
+
+    table = hypergeometric_table(N, M, n)
+    print_table(table)
+
+if __name__ == "__main__":
+    main()
+
+===========================================================================================================================
+Output:
+
+Enter the population size (N): 20
+Enter the number of success states in the population (M): 8
+Enter the number of draws (n): 5
+x	P(X=x)
+0	0.051084
+1	0.255418
+2	0.397317
+3	0.238390
+4	0.054180
+5	0.003612

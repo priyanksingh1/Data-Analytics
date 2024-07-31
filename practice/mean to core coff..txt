@@ -1,0 +1,163 @@
+Name        	: Priyank Singh Bhadouriya
+Roll NO.    	: 33
+Subject	    	: Data Analytics
+Course	    	: MCA 2
+
+===========================================================================================================================
+WAP for implementing mean,median,mode,percentile,range,IQR,variance,
+std. deviation,coff of variation,co-variance,correlation coefficient through
+
+1. Hardcoding the formula.
+2. Applying libraries over the dataset
+3. Show the data using plots
+===========================================================================================================================
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Example dataset
+data = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50]
+
+# 1. Hardcoding the formulas
+
+# Mean
+def mean(data):
+    return sum(data) / len(data)
+
+# Median
+def median(data):
+    sorted_data = sorted(data)
+    n = len(data)
+    if n % 2 == 0:
+        return (sorted_data[n//2-1] + sorted_data[n//2]) / 2
+    else:
+        return sorted_data[n//2]
+
+# Mode
+def mode(data):
+    counts = {}
+    for x in data:
+        if x in counts:
+            counts[x] += 1
+        else:
+            counts[x] = 1
+    return max(counts.items(), key=lambda x: x[1])[0]
+
+# Percentile
+def percentile(data, p):
+    sorted_data = sorted(data)
+    n = len(data)
+    k = (n-1) * p / 100
+    k_floor = int(np.floor(k))
+    k_ceil = int(np.ceil(k))
+    if k_floor == k_ceil:
+        return sorted_data[k_floor]
+    else:
+        return sorted_data[k_floor] * (k_ceil - k) + sorted_data[k_ceil] * (k - k_floor)
+
+# Range
+def data_range(data):
+    return max(data) - min(data)
+
+# IQR
+def iqr(data):
+    sorted_data = sorted(data)
+    n = len(data)
+    q1 = percentile(sorted_data, 25)
+    q3 = percentile(sorted_data, 75)
+    return q3 - q1
+
+# Variance
+def variance(data):
+    mean_val = mean(data)
+    squared_diffs = [(x - mean_val)**2 for x in data]
+    return sum(squared_diffs) / (len(data) - 1)
+
+# Standard Deviation
+def std_dev(data):
+    return np.sqrt(variance(data))
+
+# Coefficient of Variation
+def coeff_of_variation(data):
+    return std_dev(data) / mean(data)
+
+# Covariance
+def covariance(data1, data2):
+    mean1 = mean(data1)
+    mean2 = mean(data2)
+    n = len(data1)
+    cov = 0
+    for i in range(n):
+        cov += (data1[i] - mean1) * (data2[i] - mean2)
+    cov /= (n - 1)
+    return cov
+
+# Correlation Coefficient
+def correlation_coeff(data1, data2):
+    cov = covariance(data1, data2)
+    std_dev1 = std_dev(data1)
+    std_dev2 = std_dev(data2)
+    return cov / (std_dev1 * std_dev2)
+
+# 2. Applying libraries over the dataset
+
+# Convert data to a Pandas Series
+data_series = pd.Series(data)
+
+# Calculate summary statistics
+print("Mean:", data_series.mean())
+print("Median:", data_series.median())
+print("Mode:", data_series.mode().values[0])
+print("Percentile (25th):", data_series.quantile(0.25))
+print("Percentile (75th):", data_series.quantile(0.75))
+print("Range:", data_series.max() - data_series.min())
+print("IQR:", data_series.quantile(0.75) - data_series.quantile(0.25))
+print("Variance:", data_series.var())
+print("Standard Deviation:", data_series.std())
+print("Coefficient of Variation:", data_series.std() / data_series.mean())
+
+# Covariance and Correlation Coefficient
+data1 = [1, 2, 3, 4, 5]
+data2 = [2, 4, 6, 8, 10]
+data1_series = pd.Series(data1)
+data2_series = pd.Series(data2)
+print("Covariance:", data1_series.cov(data2_series))
+print("Correlation Coefficient:", data1_series.corr(data2_series))
+
+# 3. Show the data using plots
+
+# Histogram
+plt.figure(figsize=(8, 6))
+plt.hist(data, bins=10, edgecolor='black')
+plt.title("Histogram")
+plt.xlabel("Value")
+plt.ylabel("Frequency")
+plt.show()
+
+# Box Plot
+plt.figure(figsize=(8, 6))
+plt.boxplot(data)
+plt.title("Box Plot")
+plt.ylabel("Value")
+plt.show()
+
+=========================================================================================================================
+Output:
+=========================================================================================================================
+
+Mean: 27.5
+Median: 27.5
+Mode: 5
+Percentile (25th): 16.25
+Percentile (75th): 38.75
+Range: 45
+IQR: 22.5
+Variance: 229.16666666666666
+Standard Deviation: 15.138251770487457
+Coefficient of Variation: 0.5504818825631803
+Covariance: 5.0
+Correlation Coefficient: 0.9999999999999999
+
+
+

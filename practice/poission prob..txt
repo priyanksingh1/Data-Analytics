@@ -1,0 +1,126 @@
+Name        	: Priyank Singh Bhadouriya
+Roll NO.    	: 33
+Subject	    	: Data Analytics
+Course	    	: MCA 2
+
+===========================================================================================================================
+WAP to implement poisson probability distribution (plot the graph x vs f(x)).find exp. value & variance
+===========================================================================================================================
+
+LIBRARY
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import poisson
+
+# Take input from the user
+lambd = float(input("Enter the average number of events (?): "))
+x_max = int(input("Enter the maximum value of x: "))
+
+# Calculate the Poisson probability mass function
+x_values = np.arange(0, x_max + 1)
+f_x = poisson.pmf(x_values, lambd)
+
+# Print the table
+print("X\tP(X)")
+for i in range(x_max + 1):
+    print(f"{i}\t{f_x[i]:.4f}")
+
+# Plot the graph
+plt.figure(figsize=(10, 6))
+plt.bar(x_values, f_x)
+plt.xlabel("Number of events (x)")
+plt.ylabel("Probability mass function (f(x))")
+plt.title(f"Poisson Distribution (?={lambd})")
+plt.show()
+
+# Calculate expected value and variance
+expected_value = lambd
+variance = lambd
+
+print(f"\nExpected value ( ) = {expected_value:.2f}")
+print(f"Variance (s^2) = {variance:.2f}")
+
+===========================================================================================================================
+Output:
+
+Enter the average number of events (?): 3
+Enter the maximum value of x: 10
+X	P(X)
+0	0.0498
+1	0.1494
+2	0.2240
+3	0.2240
+4	0.1680
+5	0.1008
+6	0.0504
+7	0.0216
+8	0.0081
+9	0.0027
+10	0.0008
+
+Expected value ( ) = 3.00
+Variance (s^2) = 3.00
+
+===========================================================================================================================
+
+SCRATCH
+
+import numpy as np
+import matplotlib.pyplot as plt
+from math import exp, factorial 
+
+lambd = float(input("Enter the average number of events (?): "))
+x_max = int(input("Enter the maximum value of x: "))
+
+def poisson_pmf(x, lambd):
+    return (np.exp(-lambd) * (lambd ** x)) / factorial(x)
+
+def factorial(n):
+    if n == 0:
+        return 1
+    else:
+        return n * factorial(n - 1)
+    
+x_values = np.arange(0, x_max + 1)
+f_x = [poisson_pmf(x, lambd) for x in x_values]
+
+print("X\tP(X)")
+for i in range(x_max + 1):
+    print(f"{i}\t{f_x[i]:.4f}")
+
+# Plot
+plt.figure(figsize=(10, 6))
+plt.bar(x_values, f_x)
+plt.xlabel("Number of events (x)")
+plt.ylabel("Probability mass function (f(x))")
+plt.title(f"Poisson Distribution (?={lambd})")
+plt.show()
+
+expected_value = lambd
+variance = lambd
+
+print(f"\nExpected value ( ) = {expected_value:.2f}")
+print(f"Variance (s^2) = {variance:.2f}")
+
+===========================================================================================================================
+output:
+
+X	P(X)
+0	0.0498
+1	0.1494
+2	0.2240
+3	0.2240
+4	0.1680
+5	0.1008
+6	0.0504
+7	0.0216
+8	0.0081
+9	0.0027
+10	0.0008
+
+Expected value ( ) = 3.00
+Variance (s^2) = 3.00
+
+===========================================================================================================================
+

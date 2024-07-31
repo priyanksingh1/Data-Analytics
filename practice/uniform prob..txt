@@ -1,0 +1,65 @@
+Name        	: Priyank Singh Bhadouriya
+Roll NO.    	: 33
+Subject	    	: Data Analytics
+Course	    	: MCA 2
+
+===========================================================================================================================
+WAP to implement uniform prob. distribution
+===========================================================================================================================
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+def uniform_distribution(a, b, n):
+    return np.random.uniform(a, b, n)
+
+# Take input from the user
+a = float(input("Enter the lower bound (a): "))
+b = float(input("Enter the upper bound (b): "))
+n = int(input("Enter the number of samples (n): ")) 
+
+
+# Generate the random samples
+samples = uniform_distribution(a, b, n)
+
+# Print the samples
+print("Samples:")
+print(samples)
+
+# Calculate the mean and variance
+mean = np.mean(samples)
+variance = np.var(samples)
+
+print(f"\nMean: {mean:.2f}")
+print(f"Variance: {variance:.2f}")
+
+# Plot the histogram
+plt.figure(figsize=(5, 3))
+plt.hist(samples, bins=20, density=True)
+plt.xlabel("Value")
+plt.ylabel("Probability Density")
+plt.title(f"Uniform Distribution (a={a}, b={b})")
+plt.show()
+
+===========================================================================================================================
+Output:
+
+Enter the lower bound (a): 2.0
+Enter the upper bound (b): 8.0
+Enter the number of samples (n): 50
+
+Samples:
+[3.35013188 5.61000779 7.80686927 7.40011059 7.11190656 7.78667716
+ 7.81082468 4.19475284 7.25318759 5.89030144 5.1370991  3.14293567
+ 7.86656489 3.383176   5.49329244 7.78276857 7.20618167 3.09829675
+ 2.34472656 6.74815912 5.27683782 2.37252527 3.4824638  3.28139437
+ 7.07386822 5.87819051 2.9035336  7.34319619 3.25780391 4.83573724
+ 7.6689717  7.46682009 6.40640067 6.74330442 7.39252822 4.96079281
+ 4.56146913 6.09607942 5.39670051 6.86028877 3.71955268 2.98977908
+ 2.6424146  3.98066401 4.67599387 5.48840204 3.04748488 6.86695418
+ 5.64886663 2.00821453]
+
+Mean: 5.33
+Variance: 3.34
+
+===========================================================================================================================

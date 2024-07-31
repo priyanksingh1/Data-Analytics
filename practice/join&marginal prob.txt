@@ -1,0 +1,83 @@
+Name        	: Priyank Singh Bhadouriya
+Roll NO.    	: 33
+Subject	    	: Data Analytics
+Course	    	: MCA 2
+
+===========================================================================================================================
+WAP to create cross table and find join probability & marginal probability.
+===========================================================================================================================
+
+import pandas as pd
+import numpy as np
+
+gender = ['Male', 'Male', 'Female', 'Female', 'Female']
+income = ['High', 'Low', 'High', 'Low', 'Medium']
+
+df = pd.DataFrame({'Gender': gender, 'Income': income})
+
+cross_tab = pd.crosstab(df['Gender'], df['Income'])
+print("Cross-table:")
+print(cross_tab)
+
+cross_tab = {}
+for g in set(gender):
+    cross_tab[g] = {}
+    for i in set(income):
+        cross_tab[g][i] = 0
+
+for i in range(len(gender)):
+    cross_tab[gender[i]][income[i]] += 1
+
+#join prob.
+total = sum(sum(cross_tab[g].values()) for g in cross_tab)
+join_prob = {}
+for g in cross_tab:
+    join_prob[g] = {}
+    for i in cross_tab[g]:
+        join_prob[g][i] = cross_tab[g][i] / total
+
+print("\nJoin Probability:")
+for g in join_prob:
+    print(g, join_prob[g])
+
+#marginal probability
+margin_prob_gender = {}
+margin_prob_income = {}
+for g in cross_tab:
+    margin_prob_gender[g] = sum(cross_tab[g].values()) / total
+for i in set(income):
+    margin_prob_income[i] = sum(cross_tab[g][i] for g in cross_tab) / total
+
+print("\nMarginal Probability:")
+print("\nGender:")
+for g in margin_prob_gender:
+    print(g, margin_prob_gender[g])
+print("\nIncome:")
+for i in margin_prob_income:
+    print(i, margin_prob_income[i])
+
+===========================================================================================================================
+Output:
+
+
+Cross-table:
+Income  High  Low  Medium
+Gender                   
+Female     1    1       1
+Male       1    1       0
+
+Join Probability:
+Female {'Medium': 0.2, 'Low': 0.2, 'High': 0.2}
+Male {'Medium': 0.0, 'Low': 0.2, 'High': 0.2}
+
+Marginal Probability:
+
+Gender:
+Female 0.6
+Male 0.4
+
+Income:
+Medium 0.2
+Low 0.4
+High 0.4
+===========================================================================================================================

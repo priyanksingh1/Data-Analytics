@@ -1,0 +1,46 @@
+Name        	: Priyank Singh Bhadouriya
+Roll NO.    	: 33
+Subject	    	: Data Analytics
+Course	    	: MCA 2
+
+===========================================================================================================================
+WAP for detection of outliers.with IQR,boxplot,z-score.
+===========================================================================================================================
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Sample data
+data = [5, 7, 8, 9, 10, 12, 15, 18, 20, 25, 30, 35, 40, 45, 50, 70, 500]
+
+# Convert to a Pandas Series
+data_series = pd.Series(data)
+
+# Detect outliers using IQR
+q1 = data_series.quantile(0.25)
+q3 = data_series.quantile(0.75)
+iqr = q3 - q1
+lower_bound = q1 - 1.5 * iqr
+upper_bound = q3 + 1.5 * iqr
+outliers_iqr = data_series[(data_series < lower_bound) | (data_series > upper_bound)]
+print("Outliers detected using IQR:", outliers_iqr.values)
+
+# Detect outliers using box plot
+plt.figure(figsize=(8, 6))
+plt.boxplot(data)
+plt.title("Box Plot")
+plt.ylabel("Value")
+plt.show()
+
+# Detect outliers using Z-score
+z_scores = (data_series - data_series.mean()) / data_series.std()
+outliers_z_score = data_series[np.abs(z_scores) > 3]
+print("Outliers detected using Z-score:", outliers_z_score.values)
+
+===========================================================================================================================
+Output:
+
+Outliers detected using IQR: [500]
+Outliers detected using Z-score: [500]
+===========================================================================================================================

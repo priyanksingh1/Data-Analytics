@@ -1,0 +1,67 @@
+Name        	: Priyank Singh Bhadouriya
+Roll NO.    	: 33
+Subject	    	: Data Analytics
+Course	    	: MCA 2
+
+===========================================================================================================================
+WAP to implement the bionomial distribution.Take n & x as input from user & plot graph x vs f(x).
+(also print table) and using library and scratch.
+===========================================================================================================================
+
+LIBRARY
+
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import binom
+
+n = int(input("Enter the number of trials (n): "))
+x = int(input("Enter the number of successes (x): "))
+p = binom.pmf(x, n, 0.5)
+x_values = np.arange(0, n+1)
+f_x = binom.pmf(x_values, n, 0.5)
+
+print("X\tP(X)")
+for i in range(n+1):
+    print(f"{i}\t{f_x[i]:.4f}")
+
+# Plot
+plt.figure(figsize=(5, 3))
+plt.bar(x_values, f_x)
+plt.xlabel("Number of successes (x)")
+plt.ylabel("Probability mass function (f(x))")
+plt.title(f"Binomial Distribution (n={n}, p=0.5)")
+plt.show()
+
+===========================================================================================================================
+Output:
+
+Enter the number of trials (n): 5
+Enter the number of successes (x): 12
+X	P(X)
+0	0.0312
+1	0.1562
+2	0.3125
+3	0.3125
+4	0.1562
+5	0.0312
+
+===========================================================================================================================
+
+SCRATCH
+
+
+===========================================================================================================================
+Output:
+
+Enter the number of trials (n): 5
+Enter the number of successes (x): 2
+Enter the probability of success (p): 0.5
+X	P(X)
+0	0.0312
+1	0.1562
+2	0.3125
+3	0.3125
+4	0.1562
+5	0.0312
+
+

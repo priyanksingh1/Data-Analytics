@@ -1,0 +1,73 @@
+Name        	: Priyank Singh Bhadouriya
+Roll NO.    	: 33
+Subject	    	: Data Analytics
+Course	    	: MCA 2
+
+===========================================================================================================================
+WAP to implement normal prob. distribution & standard deviation (Hardcode)
+===========================================================================================================================
+
+from math import exp, sqrt, pi
+
+def normal_pdf(x, mu=0, sigma=1):
+    return (1 / (sigma * sqrt(2 * pi))) * exp(-((x - mu) ** 2) / (2 * sigma ** 2))
+
+def normal_cdf(x, mu=0, sigma=1):
+    return (1 + erf((x - mu) / (sigma * sqrt(2)))) / 2
+
+def erf(x):
+    a1 = 0.254829592
+    a2 = -0.284496736
+    a3 = 1.421413741
+    a4 = -1.453152027
+    a5 = 1.061405429
+    p = 0.3275911
+
+    t = 1 / (1 + p * x)
+    y = 1 - (((((a5 * t + a4) * t + a3) * t + a2) * t + a1) * t) * exp(-x ** 2)
+
+    return 1 - y if x >= 0 else y - 1
+
+def cal_sd(data):
+    n = len(data)
+    mean = sum(data) / n
+    squared_diff_sum = sum((x - mean) ** 2 for x in data)
+    variance = squared_diff_sum / (n - 1)
+    std_dev = sqrt(variance)
+    return std_dev
+
+# Hardcoded data
+input_data = input("Enter data points separated by spaces: ")
+data = list(map(float, input_data.split()))
+
+# Calculate standard deviation
+std_dev = cal_sd(data)
+print(f"Standard deviation: {std_dev:.2f}")
+
+# Calculate normal probabilities
+mu = sum(data) / len(data)  # Mean
+print(f"\nMean: {mu:.2f}")
+
+for x in data:
+    pdf = normal_pdf(x, mu, std_dev)
+    cdf = normal_cdf(x, mu, std_dev)
+    print(f"x = {x:.2f}, PDF = {pdf:.4f}, CDF = {cdf:.4f}")
+
+
+===========================================================================================================================
+Output:
+
+Enter data points separated by spaces: 2 5 89 44 66 23 778 45 26 42
+Standard deviation: 235.49
+
+Mean: 112.00
+x = 2.00, PDF = 0.0015, CDF = -0.1798
+x = 5.00, PDF = 0.0015, CDF = -0.1753
+x = 89.00, PDF = 0.0017, CDF = -0.0389
+x = 44.00, PDF = 0.0016, CDF = -0.1136
+x = 66.00, PDF = 0.0017, CDF = -0.0774
+x = 23.00, PDF = 0.0016, CDF = -0.1473
+x = 778.00, PDF = 0.0000, CDF = 0.5023
+x = 45.00, PDF = 0.0016, CDF = -0.1120
+x = 26.00, PDF = 0.0016, CDF = -0.1425
+x = 42.00, PDF = 0.0016, CDF = -0.1169

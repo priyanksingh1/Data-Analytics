@@ -1,0 +1,51 @@
+Name        	: Priyank Singh Bhadouriya
+Roll NO.    	: 33
+Subject	    	: Data Analytics
+Course	    	: MCA 2
+
+===========================================================================================================================
+Device a calculator to fine the area under the curve to the left of 2 values (Prob. of getting z)
+===========================================================================================================================
+
+from math import exp, sqrt, pi
+import matplotlib.pyplot as plt
+
+def normal_pdf(x, mu=0, sigma=1):
+    return (1 / (sigma * sqrt(2 * pi))) * exp(-((x - mu) ** 2) / (2 * sigma ** 2))
+
+def normal_cdf(x, mu=0, sigma=1):
+    return (1 + erf((x - mu) / (sigma * sqrt(2)))) / 2
+
+def erf(x):
+    a1 = 0.254829592
+    a2 = -0.284496736
+    a3 = 1.421413741
+    a4 = -1.453152027
+    a5 = 1.061405429
+    p = 0.3275911
+
+    t = 1 / (1 + p * x)
+    y = 1 - (((((a5 * t + a4) * t + a3) * t + a2) * t + a1) * t) * exp(-x ** 2)
+
+    return 1 - y if x >= 0 else y - 1
+
+def area_under_curve(z1, z2):
+    return normal_cdf(z2) - normal_cdf(z1)
+
+z1 = float(input("Enter the first z-value: "))
+z2 = float(input("Enter the second z-value: "))
+
+area = area_under_curve(z1, z2)
+print(f"The area under the curve to the left of {z1} is: {normal_cdf(z1):.4f}")
+print(f"The area under the curve to the left of {z2} is: {normal_cdf(z2):.4f}")
+print(f"The area under the curve between {z1} and {z2} is: {area:.4f}")
+
+===========================================================================================================================
+Output:
+
+Enter the first z-value: 2
+Enter the second z-value: 6
+The area under the curve to the left of 2.0 is: 0.5228
+The area under the curve to the left of 6.0 is: 0.5000
+The area under the curve between 2.0 and 6.0 is: -0.0228
+
