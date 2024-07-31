@@ -1,2 +1,2 @@
-# Data-Analytics-project
-Data Analytics project
+# Data-Analytics-projects and practice
+Data Analytics 
